@@ -1,6 +1,8 @@
 import express from "express";
 import cors from "cors";
+import connectDB from "./config/db.js";
 import "dotenv/config";
+
 
 
 const app = express();
@@ -16,13 +18,14 @@ app.use(cors({
 
 app.get("/api/health", (req, res) => {
     res.json({
-        "success": true,
-        "message": "Acadex API is running"
+        success: true,
+        message: "Acadex API is running"
     });
 });
 
 
+await connectDB();
 
-app.listen(5000, () => {
-    console.log("Server started at port 5000");
+app.listen(process.env.PORT || 5000, () => {
+    console.log(`Server started at port ${process.env.PORT}`);
 })
